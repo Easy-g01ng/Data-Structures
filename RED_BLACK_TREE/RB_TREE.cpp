@@ -6,9 +6,9 @@ constexpr unsigned char RED = 1;
 constexpr unsigned char BLACK = 0;
 
 typedef struct User_Data {
-	//ÓÃ»§×Ô¶¨ÒåÊı¾İÀàĞÍ
+	//ç”¨æˆ·è‡ªå®šä¹‰æ•°æ®ç±»å‹
 	int key;
-	//ºóĞø¿É¸ù¾İĞèÇóÍØÕ¹
+	//åç»­å¯æ ¹æ®éœ€æ±‚æ‹“å±•
 } Data;
 
 typedef struct RBtree_Node {
@@ -32,10 +32,10 @@ private:
 	void RBtree_left_rotate(RBNode* node);
 	void RBtree_right_rotate(RBNode* node);
 
-	void insert_fixup(RBNode* node);//²åÈëĞŞ¸´º¯Êı
-	void delete_fixup(RBNode* node);//É¾³ıĞŞ¸´º¯Êı
+	void insert_fixup(RBNode* node);//æ’å…¥ä¿®å¤å‡½æ•°
+	void delete_fixup(RBNode* node);//åˆ é™¤ä¿®å¤å‡½æ•°
 
-	void destroy(RBNode* node);//¸¨ÖúÎö¹¹º¯Êı
+	void destroy(RBNode* node);//è¾…åŠ©ææ„å‡½æ•°
 
 	void Inorder_traversal_By_Recursion(RBNode* node) const;
 	void Inorder_traversal_By_Cycle(RBNode* node) const;
@@ -65,12 +65,12 @@ RBtree::RBtree() {
 
 void RBtree::RBtree_left_rotate(RBNode* x) {
 	RBNode* y = x->right;
-	//ĞŞ¸Äx½ÚµãµÄÓÒÖ¸ÏòÒÔ¼°y½Úµã×ó×Ó½Úµã£¨ÏÈÅĞ¶ÏÊÇ·ñ´æÔÚ£©µÄ¸¸Ç×Ö¸Ïò
+	//ä¿®æ”¹xèŠ‚ç‚¹çš„å³æŒ‡å‘ä»¥åŠyèŠ‚ç‚¹å·¦å­èŠ‚ç‚¹ï¼ˆå…ˆåˆ¤æ–­æ˜¯å¦å­˜åœ¨ï¼‰çš„çˆ¶äº²æŒ‡å‘
 	x->right = y->left;
 	if (y->left != nul) {
 		y->left->father = x;
 	}
-	//ĞŞ¸Äy½ÚµãµÄ¸¸Ç×Ö¸ÏòÒÔ¼°Ô­ÏÈx½ÚµãµÄ¸¸Ç×½Úµã¶Ôº¢×Ó½ÚµãµÄÖ¸Ïò£¨»òÕß¸üĞÂ¸ù½Úµã£©
+	//ä¿®æ”¹yèŠ‚ç‚¹çš„çˆ¶äº²æŒ‡å‘ä»¥åŠåŸå…ˆxèŠ‚ç‚¹çš„çˆ¶äº²èŠ‚ç‚¹å¯¹å­©å­èŠ‚ç‚¹çš„æŒ‡å‘ï¼ˆæˆ–è€…æ›´æ–°æ ¹èŠ‚ç‚¹ï¼‰
 	y->father = x->father;
 	if (x->father == nul) {
 		root = y;
@@ -81,12 +81,12 @@ void RBtree::RBtree_left_rotate(RBNode* x) {
 	else {
 		x->father->right = y;
 	}
-	//ĞŞ¸Äy½ÚµãµÄ×óÖ¸ÏòÒÔ¼°x½ÚµãµÄ¸¸Ç×Ö¸Ïò
+	//ä¿®æ”¹yèŠ‚ç‚¹çš„å·¦æŒ‡å‘ä»¥åŠxèŠ‚ç‚¹çš„çˆ¶äº²æŒ‡å‘
 	y->left = x;
 	x->father = y;
 }
 
-void RBtree::RBtree_right_rotate(RBNode* y) { //Óë×óĞıÍ¬Àí£¬½«xºÍyÒÔ¼°leftºÍright»¥»»¼´¿É
+void RBtree::RBtree_right_rotate(RBNode* y) { //ä¸å·¦æ—‹åŒç†ï¼Œå°†xå’Œyä»¥åŠleftå’Œrightäº’æ¢å³å¯
 	RBNode* x = y->left;
 	y->left = x->right;
 	if (x->right != nul) {
@@ -163,9 +163,9 @@ void RBtree::destroy(RBNode* node) {
 }
 
 void RBtree::Inorder_traversal_By_Recursion(RBNode* node) const {
-	//µİ¹é³ö¿Ú
+	//é€’å½’å‡ºå£
 	if (node == nul) { return; }
-	//×ó ÖĞ ÓÒ
+	//å·¦ ä¸­ å³
 	Inorder_traversal_By_Recursion(node->left);
 	std::cout << node->data->key << " ";
 	Inorder_traversal_By_Recursion(node->right);
@@ -181,7 +181,7 @@ void RBtree::Inorder_traversal_By_Cycle(RBNode* node) const {
 			current_ptr = current_ptr->left;
 		}
 
-		//Ñ¹Õ»Íê±Ï¿ªÊ¼·ÃÎÊÕ»¶¥½Úµã
+		//å‹æ ˆå®Œæ¯•å¼€å§‹è®¿é—®æ ˆé¡¶èŠ‚ç‚¹
 		std::cout << stack_.back()->data->key << " ";
 		current_ptr = stack_.back()->right;
 		stack_.pop_back();
@@ -206,7 +206,7 @@ void RBtree::RBtree_insert(const int& key) {
 	RBNode* y = new RBNode;
 	y->data = new Data{ key };
 	y->left = y->right = nul;
-	y->color = 1;//Ä¬ÈÏ²åÈëµÄĞÂ½ÚµãÎªºìÉ«
+	y->color = 1;//é»˜è®¤æ’å…¥çš„æ–°èŠ‚ç‚¹ä¸ºçº¢è‰²
 
 	RBNode* target = nul;
 	RBNode* x = root;
@@ -220,7 +220,7 @@ void RBtree::RBtree_insert(const int& key) {
 			x = x->right;
 		}
 		else {
-			//ÈçĞèÊµÏÖÏàÍ¬keyÖµÇé¿öÏÂµÄÒµÎñÍØÕ¹£¬ÔÙÔÚ´Ë´¦±àĞ´´úÂë
+			//å¦‚éœ€å®ç°ç›¸åŒkeyå€¼æƒ…å†µä¸‹çš„ä¸šåŠ¡æ‹“å±•ï¼Œå†åœ¨æ­¤å¤„ç¼–å†™ä»£ç 
 			delete y;
 			return;
 		}
@@ -228,7 +228,7 @@ void RBtree::RBtree_insert(const int& key) {
 	y->father = target;
 	if (target == nul) {
 		root = y;
-		y->color = 0;//µÚÒ»¸ö²åÈëµÄ½Úµã×÷Îª¸ù½Úµã±ØĞëÊÇºÚÉ«
+		y->color = 0;//ç¬¬ä¸€ä¸ªæ’å…¥çš„èŠ‚ç‚¹ä½œä¸ºæ ¹èŠ‚ç‚¹å¿…é¡»æ˜¯é»‘è‰²
 	}
 	else if (key < target->data->key) {
 		target->left = y;
